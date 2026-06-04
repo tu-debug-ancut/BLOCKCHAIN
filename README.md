@@ -234,7 +234,7 @@ python main.py
 
 # 👨‍💻 Tác giả
 
-**Trịnh Thị Huyền Trang**
+**Hoàng Anh Tú**
 
 Khoa Công nghệ Thông tin
 
