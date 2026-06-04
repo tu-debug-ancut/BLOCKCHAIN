@@ -192,7 +192,7 @@ Ngoài blockchain cục bộ, hệ thống còn hỗ trợ lưu TxHash lên Ethe
 ## Kết nối Blockchain Ethereum Sepolia
 
 <p align="center">
-<img src="6.jpg" width="900">
+<img src="8.jpg" width="900">
 </p>
 
 ---
