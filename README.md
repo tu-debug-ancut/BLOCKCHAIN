@@ -1,10 +1,10 @@
-<div align="center">
+<img width="1884" height="762" alt="image" src="https://github.com/user-attachments/assets/a3bd2d49-68f1-405d-b88f-e8f6dafa80bb" /><div align="center">
 
 # 🎓 Faculty of Information Technology (DaiNam University)
 
 ---
 
-# FATIGUEGUARDIAN – HỆ THỐNG GIÁM SÁT MỆT MỎI VÀ NHẮC NHỞ NGƯỜI DÙNG THỜI GIAN THỰC
+# FATIGUEGUARDIAN – HỆ THỐNG THIẾT BỊ NHẮC NHỞ NGỒI LÂU CHỐNG MỎI VÀ MỆT MỎI THỊ GIÁC
 
 ---
 
