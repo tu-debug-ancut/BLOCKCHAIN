@@ -180,19 +180,19 @@ Ngoài blockchain cục bộ, hệ thống còn hỗ trợ lưu TxHash lên Ethe
 ## Phát hiện khuôn mặt bằng MediaPipe
 
 <p align="center">
-<img src="docs/facemesh.png" width="900">
+<img src="7.jpg" width="900">
 </p>
 
 ## Dashboard thời gian thực
 
 <p align="center">
-<img src="docs/dashboard.png" width="900">
+<img src="5.jpg" width="900">
 </p>
 
 ## Kết nối Blockchain Ethereum Sepolia
 
 <p align="center">
-<img src="docs/sepolia.png" width="900">
+<img src="6.jpg" width="900">
 </p>
 
 ---
