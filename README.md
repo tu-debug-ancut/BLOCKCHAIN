@@ -1,4 +1,4 @@
-<img width="1884" height="762" alt="image" src="https://github.com/user-attachments/assets/a3bd2d49-68f1-405d-b88f-e8f6dafa80bb" /><div align="center">
+
 
 # 🎓 Faculty of Information Technology (DaiNam University)
 
