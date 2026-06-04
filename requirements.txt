@@ -1,0 +1,9 @@
+opencv-python>=4.8.0
+mediapipe>=0.10.0
+flask>=3.0.0
+numpy>=1.24.0
+plyer>=2.1.0
+pygame>=2.5.0
+
+web3>=6.0.0
+python-dotenv>=1.0.0

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FatigueGuardian — Bảo vệ Sức khỏe Văn phòng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #070b14;
+  --bg2:       #0d1425;
+  --bg3:       #111b30;
+  --border:    #1e2f50;
+  --accent:    #00e5ff;
+  --accent2:   #7b5cf5;
+  --warn:      #ff6b35;
+  --ok:        #00e676;
+  --text:      #c8d8f0;
+  --text-dim:  #4a6080;
+  --mono:      'Space Mono', monospace;
+  --sans:      'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Background grid ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+/* ── Header ── */
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, rgba(0,229,255,.06), rgba(123,92,245,.06));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(12px);
+}
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo-icon { font-size: 2rem; animation: pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+.logo-text h1 { font-size: 1.35rem; font-weight: 600; color: var(--accent); letter-spacing: -.5px; }
+.logo-text p  { font-size: .78rem; color: var(--text-dim); font-family: var(--mono); }
+.header-badges { display: flex; gap: 10px; align-items: center; }
+.badge {
+  font-family: var(--mono); font-size: .72rem;
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid; display: flex; align-items: center; gap: 6px;
+}
+.badge.live   { border-color: var(--ok);    color: var(--ok); }
+.badge.chain  { border-color: var(--accent2); color: var(--accent2); }
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); animation: blink 1.2s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ── Grid ── */
+.grid-main    { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+.grid-bottom  { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; margin-bottom: 20px; }
+.grid-chain   { display: grid; grid-template-columns: 1fr; gap: 18px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s;
+}
+.card:hover { border-color: rgba(0,229,255,.3); }
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity .3s;
+}
+.card:hover::before { opacity: 1; }
+.card-label { font-family: var(--mono); font-size: .68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+.card-value { font-size: 2.4rem; font-weight: 600; line-height: 1; margin-bottom: 6px; }
+.card-sub   { font-size: .8rem; color: var(--text-dim); }
+
+/* ── EAR Card ── */
+.ear-card .card-value { font-family: var(--mono); }
+.ear-bar-wrap { margin-top: 14px; }
+.ear-bar-bg   { height: 8px; background: var(--bg3); border-radius: 4px; position: relative; }
+.ear-bar-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--warn), var(--ok));
+  transition: width .4s ease;
+}
+.ear-threshold {
+  position: absolute; top: -4px; width: 2px; height: 16px;
+  background: var(--warn); border-radius: 1px;
+}
+.ear-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: .68rem; color: var(--text-dim); font-family: var(--mono); }
+
+/* ── Status ── */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: 30px; font-size: .85rem; font-weight: 500;
+  transition: all .4s;
+}
+.status-ok       { background: rgba(0,230,118,.12); color: var(--ok);  border: 1px solid rgba(0,230,118,.3); }
+.status-warn     { background: rgba(255,107,53,.12); color: var(--warn); border: 1px solid rgba(255,107,53,.3); }
+.status-critical { background: rgba(255,50,50,.15);  color: #ff4444; border: 1px solid rgba(255,50,50,.4);
+                   animation: flash .6s ease infinite; }
+@keyframes flash { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+/* ── Sedentary ring ── */
+.ring-wrap { display: flex; align-items: center; justify-content: center; margin: 10px 0; }
+.ring-svg circle { transition: stroke-dashoffset .8s ease; }
+.ring-center { position: absolute; text-align: center; }
+.ring-center .val { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; }
+.ring-center .lbl { font-size: .68rem; color: var(--text-dim); }
+
+/* ── Blockchain Explorer ── */
+.chain-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.chain-title  { font-size: 1rem; font-weight: 600; color: var(--accent); }
+.chain-badge  { font-family: var(--mono); font-size: .7rem; padding: 4px 10px; border-radius: 10px;
+                background: rgba(123,92,245,.15); color: var(--accent2); border: 1px solid rgba(123,92,245,.3); }
+
+.block-list { display: flex; flex-direction: column; gap: 10px; max-height: 420px; overflow-y: auto; }
+.block-list::-webkit-scrollbar { width: 4px; }
+.block-list::-webkit-scrollbar-track { background: var(--bg3); border-radius: 2px; }
+.block-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.block-item {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: 12px; align-items: center;
+  transition: border-color .2s, transform .2s;
+  animation: slideIn .3s ease;
+}
+@keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+.block-item:hover { border-color: rgba(0,229,255,.25); transform: translateX(3px); }
+.block-num { font-family: var(--mono); font-size: .7rem; color: var(--text-dim); }
+.block-body { min-width: 0; }
+.block-event { font-size: .82rem; font-weight: 500; margin-bottom: 3px; }
+.block-hash  { font-family: var(--mono); font-size: .65rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.block-time  { font-family: var(--mono); font-size: .65rem; color: var(--text-dim); text-align: right; white-space: nowrap; }
+.block-dot   { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+
+.event-EYES_CLOSED   { color: #ff4444; } .dot-EYES_CLOSED   { background: #ff4444; }
+.event-BLINK_SLOW    { color: #ffa726; } .dot-BLINK_SLOW    { background: #ffa726; }
+.event-SEDENTARY     { color: var(--warn); } .dot-SEDENTARY     { background: var(--warn); }
+.event-BREAK_TAKEN   { color: var(--ok);  } .dot-BREAK_TAKEN   { background: var(--ok); }
+.event-SESSION_START { color: var(--accent); } .dot-SESSION_START { background: var(--accent); }
+.event-SESSION_END   { color: var(--text-dim); } .dot-SESSION_END   { background: var(--text-dim); }
+.event-ALERT_SENT    { color: var(--accent2); } .dot-ALERT_SENT    { background: var(--accent2); }
+
+/* ── Stats row ── */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.stat-box .val { font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.stat-box .lbl { font-size: .72rem; color: var(--text-dim); }
+
+/* ── Chart ── */
+.chart-wrap { position: relative; height: 120px; margin-top: 12px; }
+.chart-svg  { width: 100%; height: 100%; }
+
+/* ── Integrity ── */
+.integrity-wrap { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 14px; background: var(--bg3); border-radius: 8px; }
+.integrity-val { font-family: var(--mono); font-size: .8rem; }
+
+/* ── Buttons ── */
+.btn {
+  padding: 9px 18px; border-radius: 8px; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: .82rem; font-weight: 500;
+  transition: all .2s; display: inline-flex; align-items: center; gap: 7px;
+}
+.btn-primary { background: rgba(0,229,255,.15); color: var(--accent); border: 1px solid rgba(0,229,255,.3); }
+.btn-primary:hover { background: rgba(0,229,255,.25); transform: translateY(-1px); }
+.btn-break { background: rgba(0,230,118,.12); color: var(--ok); border: 1px solid rgba(0,230,118,.3); }
+.btn-break:hover { background: rgba(0,230,118,.22); }
+
+/* ── Tabs ── */
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.tab { padding: 7px 14px; border-radius: 7px; font-size: .8rem; cursor: pointer; border: 1px solid transparent; transition: all .2s; color: var(--text-dim); }
+.tab.active { background: rgba(0,229,255,.1); color: var(--accent); border-color: rgba(0,229,255,.2); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Chain full view ── */
+.chain-full { font-family: var(--mono); font-size: .7rem; }
+.chain-block {
+  border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px;
+  overflow: hidden;
+}
+.chain-block-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: var(--bg3); cursor: pointer;
+}
+.chain-block-body { padding: 12px 14px; border-top: 1px solid var(--border); display: none; }
+.chain-block-body.open { display: block; }
+.kv { display: flex; gap: 8px; margin-bottom: 5px; }
+.kv .k { color: var(--text-dim); min-width: 130px; }
+.kv .v { color: var(--accent); word-break: break-all; }
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .grid-main   { grid-template-columns: 1fr 1fr; }
+  .grid-bottom { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .grid-main { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .header-badges { display: none; }
+}
+
+.nonce-badge {
+  font-family: var(--mono); font-size: .65rem;
+  padding: 2px 8px; border-radius: 10px;
+  background: rgba(123,92,245,.1); color: var(--accent2);
+  border: 1px solid rgba(123,92,245,.2);
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ── Header ── -->
+<header>
+  <div class="logo">
+    <span class="logo-icon">🛡️</span>
+    <div class="logo-text">
+      <h1>FATIGUE GUARDIAN</h1>
+      <p>AI Health Monitor × Blockchain Ledger</p>
+    </div>
+  </div>
+  <div class="header-badges">
+    <div class="badge live"><span class="live-dot"></span>LIVE FEED</div>
+    <div class="badge chain">⛓ BLOCKCHAIN</div>
+    <button class="btn btn-break" onclick="logBreak()">☕ Ghi nhận nghỉ</button>
+  </div>
+</header>
+
+<!-- ── Main metrics ── -->
+<div class="grid-main">
+  
+  <!-- EAR Card -->
+  <div class="card ear-card">
+    <div class="card-label">👁️ Eye Aspect Ratio (EAR)</div>
+    <div class="card-value" id="ear-val" style="color:var(--ok)">—</div>
+    <div class="card-sub" id="ear-status">Đang chờ dữ liệu camera...</div>
+    <div class="ear-bar-wrap">
+      <div class="ear-bar-bg">
+        <div class="ear-bar-fill" id="ear-bar" style="width:60%"></div>
+        <div class="ear-threshold" id="ear-thresh" style="left:52%"></div>
+      </div>
+      <div class="ear-labels"><span>0.0 (Nhắm)</span><span>0.21 ←ngưỡng</span><span>0.4 (Mở)</span></div>
+    </div>
+  </div>
+
+  <!-- Status Card -->
+  <div class="card" style="display:flex;flex-direction:column;justify-content:space-between">
+    <div>
+      <div class="card-label">🔍 Trạng thái hiện tại</div>
+      <div style="margin:14px 0">
+        <span class="status-pill status-ok" id="status-pill">✅ Bình thường</span>
+      </div>
+    </div>
+    <div>
+      <div class="card-label" style="margin-top:10px">📊 Phiên làm việc</div>
+      <div style="display:flex;gap:16px;margin-top:8px">
+        <div><div style="font-family:var(--mono);font-size:1.1rem;color:var(--accent)" id="session-min">0</div><div style="font-size:.72rem;color:var(--text-dim)">phút</div></div>
+        <div><div style="font-family:var(--mono);font-size:1.1rem;color:var(--accent2)" id="blink-count">0</div><div style="font-size:.72rem;color:var(--text-dim)">chớp mắt</div></div>
+        <div><div style="font-family:var(--mono);font-size:1.1rem;color:var(--warn)" id="alert-count">0</div><div style="font-size:.72rem;color:var(--text-dim)">cảnh báo</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sedentary Ring -->
+  <div class="card" style="text-align:center">
+    <div class="card-label">🦵 Thời gian ngồi yên</div>
+    <div style="position:relative;display:inline-block;margin:4px 0">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <circle cx="55" cy="55" r="46" fill="none" stroke="var(--bg3)" stroke-width="10"/>
+        <circle id="ring-circle" cx="55" cy="55" r="46" fill="none" stroke="var(--accent)" stroke-width="10"
+          stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"
+          transform="rotate(-90 55 55)" style="transition:stroke-dashoffset .8s ease,stroke .5s"/>
+      </svg>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+        <div style="font-family:var(--mono);font-size:1.3rem;font-weight:700" id="sed-val">0</div>
+        <div style="font-size:.65rem;color:var(--text-dim)">phút</div>
+      </div>
+    </div>
+    <div style="font-size:.75rem;color:var(--text-dim)">Ngưỡng cảnh báo: <span style="color:var(--warn)">30 phút</span></div>
+  </div>
+
+</div>
+
+<!-- ── Bottom: Events + Blockchain Stats ── -->
+<div class="grid-bottom">
+  
+  <!-- Blockchain Event Log -->
+  <div class="card">
+    <div class="chain-header">
+      <span class="chain-title">⛓ Sự kiện Blockchain</span>
+      <span class="chain-badge" id="block-count">0 blocks</span>
+    </div>
+    
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('events')">Sự kiện gần đây</div>
+      <div class="tab" onclick="switchTab('chain')">Explorer đầy đủ</div>
+    </div>
+    
+    <div class="tab-content active" id="tab-events">
+      <div class="block-list" id="event-list">
+        <div style="color:var(--text-dim);font-size:.8rem;padding:20px;text-align:center">Đang tải dữ liệu blockchain...</div>
+      </div>
+    </div>
+    
+    <div class="tab-content" id="tab-chain">
+      <div style="max-height:380px;overflow-y:auto" id="chain-full-list">
+        <div style="color:var(--text-dim);font-size:.8rem;padding:20px;text-align:center">Nhấn tab để tải...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Panel -->
+  <div style="display:flex;flex-direction:column;gap:16px">
+    
+    <!-- Blockchain Integrity -->
+    <div class="card">
+      <div class="card-label">🔐 Blockchain Status</div>
+      <div class="stats-grid" style="margin-top:10px">
+        <div class="stat-box">
+          <div class="val" id="stat-total">0</div>
+          <div class="lbl">Tổng blocks</div>
+        </div>
+        <div class="stat-box">
+          <div class="val" id="stat-today">0</div>
+          <div class="lbl">Hôm nay</div>
+        </div>
+        <div class="stat-box">
+          <div class="val" id="stat-alerts">0</div>
+          <div class="lbl">Cảnh báo</div>
+        </div>
+      </div>
+      <div class="integrity-wrap">
+        <span style="font-size:1.2rem" id="integrity-icon">✅</span>
+        <div>
+          <div class="integrity-val" id="integrity-text">Đang kiểm tra...</div>
+          <div style="font-family:var(--mono);font-size:.62rem;color:var(--text-dim);margin-top:2px" id="last-hash">hash: —</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Event breakdown -->
+    <div class="card">
+      <div class="card-label">📈 Phân tích sự kiện</div>
+      <div id="event-breakdown" style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+        <div style="color:var(--text-dim);font-size:.8rem">Chờ dữ liệu...</div>
+      </div>
+    </div>
+    
+    <!-- Proof of Work info -->
+    <div class="card">
+      <div class="card-label">⚙️ Blockchain Engine</div>
+      <div style="font-family:var(--mono);font-size:.72rem;display:flex;flex-direction:column;gap:6px;margin-top:8px">
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Algorithm</span><span>SHA-256 PoW</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Difficulty</span><span style="color:var(--accent)">0x00... (2 zeros)</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Consensus</span><span>Proof-of-Work</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Storage</span><span>Local JSON</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Immutability</span><span style="color:var(--ok)">✅ Hash-linked</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ─── State ────────────────────────────────────────────
+let chainData = [];
+let activeTab = 'events';
+let chainLoaded = false;
+
+// ─── SSE Connection ───────────────────────────────────
+const evtSource = new EventSource('/api/stream');
+evtSource.onmessage = e => {
+  const d = JSON.parse(e.data);
+  updateLive(d.live || {});
+  updateBlockchain(d.blockchain || {});
+};
+evtSource.onerror = () => {
+  // Fallback polling
+  setTimeout(pollData, 2000);
+};
+
+function pollData() {
+  fetch('/api/stats').then(r=>r.json()).then(d => {
+    updateLive(d.live || {});
+    updateBlockchain(d.blockchain || {});
+  });
+  setTimeout(pollData, 3000);
+}
+
+// ─── Live Metrics ─────────────────────────────────────
+function updateLive(live) {
+  if (!live || Object.keys(live).length === 0) return;
+
+  // EAR
+  const ear = live.ear || 0;
+  document.getElementById('ear-val').textContent = ear.toFixed(3);
+  const earPct = Math.min(ear / 0.4, 1.0) * 100;
+  document.getElementById('ear-bar').style.width = earPct + '%';
+  document.getElementById('ear-bar').style.background =
+    ear < 0.21 ? 'var(--warn)' : ear < 0.27 ? '#ffd54f' : 'linear-gradient(90deg,var(--warn),var(--ok))';
+
+  // EAR status
+  const earSt = document.getElementById('ear-status');
+  if (ear < 0.21)       { earSt.textContent = '⚠️ Mắt nhắm - Nguy hiểm!'; earSt.style.color='var(--warn)'; }
+  else if (ear < 0.27)  { earSt.textContent = '😐 Mắt nửa mở - Mệt mỏi'; earSt.style.color='#ffd54f'; }
+  else                   { earSt.textContent = '✅ Mắt mở bình thường'; earSt.style.color='var(--ok)'; }
+  document.getElementById('ear-val').style.color =
+    ear < 0.21 ? 'var(--warn)' : ear < 0.27 ? '#ffd54f' : 'var(--ok)';
+
+  // Status pill
+  const pill = document.getElementById('status-pill');
+  const status = live.status || 'OK';
+  if (status === 'DROWSY') {
+    pill.className = 'status-pill status-critical';
+    pill.textContent = '😴 BUỒN NGỦ - Nguy hiểm!';
+  } else if ((live.sedentary_min || 0) > 25) {
+    pill.className = 'status-pill status-warn';
+    pill.textContent = '🦵 Nên đứng dậy vận động!';
+  } else {
+    pill.className = 'status-pill status-ok';
+    pill.textContent = '✅ Hoạt động bình thường';
+  }
+
+  // Session counters
+  document.getElementById('session-min').textContent = live.session_min || 0;
+  document.getElementById('blink-count').textContent = live.blinks || 0;
+  document.getElementById('alert-count').textContent = live.drowsy_alerts || 0;
+
+  // Sedentary ring
+  const sed = live.sedentary_min || 0;
+  const sedPct = Math.min(sed / 30, 1.0);
+  const circumference = 2 * Math.PI * 46;
+  const offset = circumference * (1 - sedPct);
+  const ring = document.getElementById('ring-circle');
+  ring.style.strokeDashoffset = offset;
+  ring.style.stroke = sed > 30 ? 'var(--warn)' : sed > 20 ? '#ffd54f' : 'var(--accent)';
+  document.getElementById('sed-val').textContent = Math.round(sed);
+}
+
+// ─── Blockchain ───────────────────────────────────────
+function updateBlockchain(bc) {
+  if (!bc) return;
+  document.getElementById('block-count').textContent = (bc.total_blocks || 0) + ' blocks';
+  document.getElementById('stat-total').textContent = bc.total_blocks || 0;
+  document.getElementById('stat-today').textContent = bc.today_events || 0;
+
+  const ec = bc.events_count || {};
+  const alerts = (ec.EYES_CLOSED || 0) + (ec.BLINK_SLOW || 0) + (ec.SEDENTARY || 0);
+  document.getElementById('stat-alerts').textContent = alerts;
+
+  const intText = document.getElementById('integrity-text');
+  const intIcon = document.getElementById('integrity-icon');
+  if (bc.chain_integrity && bc.chain_integrity.includes('Toàn vẹn')) {
+    intText.textContent = 'Chain toàn vẹn — Dữ liệu an toàn';
+    intText.style.color = 'var(--ok)';
+    intIcon.textContent = '✅';
+  } else {
+    intText.textContent = 'Cảnh báo: Chain bị xâm phạm!';
+    intText.style.color = 'var(--warn)';
+    intIcon.textContent = '❌';
+  }
+
+  if (bc.last_hash) {
+    document.getElementById('last-hash').textContent = 'hash: ' + bc.last_hash.slice(0, 20) + '...';
+  }
+
+  // Event breakdown bars
+  const breakdown = document.getElementById('event-breakdown');
+  const eventMap = {
+    'EYES_CLOSED': { label: '😴 Buồn ngủ', color: '#ff4444' },
+    'BLINK_SLOW':  { label: '👁️ Chớp chậm', color: '#ffa726' },
+    'SEDENTARY':   { label: '🦵 Ngồi yên',  color: 'var(--warn)' },
+    'BREAK_TAKEN': { label: '☕ Nghỉ giải lao', color: 'var(--ok)' },
+  };
+  const maxVal = Math.max(1, ...Object.values(ec));
+  let html = '';
+  for (const [key, meta] of Object.entries(eventMap)) {
+    const count = ec[key] || 0;
+    const pct = (count / maxVal) * 100;
+    html += `<div>
+      <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:3px">
+        <span>${meta.label}</span>
+        <span style="font-family:var(--mono);color:${meta.color}">${count}</span>
+      </div>
+      <div style="height:5px;background:var(--bg);border-radius:3px">
+        <div style="height:100%;width:${pct}%;background:${meta.color};border-radius:3px;transition:width .5s"></div>
+      </div>
+    </div>`;
+  }
+  breakdown.innerHTML = html || '<div style="color:var(--text-dim);font-size:.8rem">Chưa có sự kiện</div>';
+}
+
+// ─── Event List ───────────────────────────────────────
+function loadEvents() {
+  fetch('/api/events').then(r => r.json()).then(events => {
+    const list = document.getElementById('event-list');
+    if (!events.length) {
+      list.innerHTML = '<div style="color:var(--text-dim);font-size:.8rem;padding:20px;text-align:center">Chưa có sự kiện nào</div>';
+      return;
+    }
+    list.innerHTML = events.map(b => {
+      const evt = b.data?.event || 'UNKNOWN';
+      const desc = b.data?.description || evt;
+      const dt = b.datetime || '';
+      const time = dt.split(' ')[1] || '';
+      return `<div class="block-item">
+        <div>
+          <div class="block-num">#${b.index}</div>
+          <div class="block-dot dot-${evt}" style="margin-top:4px"></div>
+        </div>
+        <div class="block-body">
+          <div class="block-event event-${evt}">${desc}</div>
+          <div class="block-hash">${b.hash?.slice(0, 24)}...</div>
+        </div>
+        <div class="block-time">${time}<br><span class="nonce-badge">⚙${b.nonce}</span></div>
+      </div>`;
+    }).join('');
+  });
+}
+
+// ─── Chain Explorer ───────────────────────────────────
+function loadFullChain() {
+  if (chainLoaded) return;
+  fetch('/api/chain').then(r => r.json()).then(chain => {
+    chainData = chain.reverse();
+    chainLoaded = false; // Allow refresh
+    const container = document.getElementById('chain-full-list');
+    container.innerHTML = chainData.map(b => {
+      const evt = b.data?.event || '';
+      return `<div class="chain-block">
+        <div class="chain-block-header" onclick="toggleBlock(this)">
+          <span>Block <span style="color:var(--accent)">#${b.index}</span> — <span class="event-${evt}">${evt}</span></span>
+          <span style="color:var(--text-dim)">${b.datetime?.split(' ')[1] || ''} ▾</span>
+        </div>
+        <div class="chain-block-body">
+          ${kv('Hash', b.hash)} ${kv('Prev Hash', b.previous_hash)} ${kv('Nonce', b.nonce)}
+          ${kv('Timestamp', b.datetime)} ${kv('Event', b.data?.event)}
+          ${b.data?.details ? kv('Details', JSON.stringify(b.data.details)) : ''}
+        </div>
+      </div>`;
+    }).join('');
+  });
+}
+
+function kv(k, v) {
+  return `<div class="kv"><span class="k">${k}:</span><span class="v">${v}</span></div>`;
+}
+function toggleBlock(el) {
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ─── Tabs ─────────────────────────────────────────────
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'events') || (i === 1 && tab === 'chain'));
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'chain') loadFullChain();
+}
+
+// ─── Break button ─────────────────────────────────────
+function logBreak() {
+  fetch('/api/add_break', { method: 'POST' }).then(() => {
+    loadEvents();
+    // Visual feedback
+    const btn = document.querySelector('.btn-break');
+    const orig = btn.textContent;
+    btn.textContent = '✅ Đã ghi nhận!';
+    btn.style.background = 'rgba(0,230,118,.3)';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2000);
+  });
+}
+
+// ─── Init ─────────────────────────────────────────────
+loadEvents();
+setInterval(loadEvents, 4000);
+</script>
+</body>
+</html>

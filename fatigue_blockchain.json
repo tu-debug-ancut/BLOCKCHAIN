@@ -1,0 +1,353 @@
+[
+  {
+    "index": 0,
+    "timestamp": 1780119772.5136633,
+    "datetime": "2026-05-30 12:42:52",
+    "data": {
+      "event": "SESSION_START",
+      "message": "FatigueGuardian Blockchain khởi tạo",
+      "version": "1.0.0",
+      "node": "local"
+    },
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "nonce": 1,
+    "hash": "0077adfef42d8f0661b93081cf749270b8ab4aee52c0085627c270338283e0bd",
+    "difficulty": 2
+  },
+  {
+    "index": 1,
+    "timestamp": 1780174052.247825,
+    "datetime": "2026-05-31 03:47:32",
+    "data": {
+      "event": "SESSION_START",
+      "description": "Bắt đầu phiên làm việc",
+      "details": {
+        "camera": "Webcam 0",
+        "resolution": "640x480",
+        "mediapipe": true
+      },
+      "session_time": "03:47:32"
+    },
+    "previous_hash": "0077adfef42d8f0661b93081cf749270b8ab4aee52c0085627c270338283e0bd",
+    "nonce": 34,
+    "hash": "001d461691e155651fa37a13293f9a3d29544078a7a17355dc0de129e12fb7d1",
+    "difficulty": 2
+  },
+  {
+    "index": 2,
+    "timestamp": 1780174056.6641386,
+    "datetime": "2026-05-31 03:47:36",
+    "data": {
+      "event": "EYES_CLOSED",
+      "description": "Mắt nhắm kéo dài (buồn ngủ)",
+      "details": {
+        "ear": 0.1517,
+        "threshold": 0.21,
+        "frames": 15
+      },
+      "session_time": "03:47:36"
+    },
+    "previous_hash": "001d461691e155651fa37a13293f9a3d29544078a7a17355dc0de129e12fb7d1",
+    "nonce": 488,
+    "hash": "008deba727a9cd98a637729a63ee0a6ee30460b2a37b8585f16f93e3f95db68b",
+    "difficulty": 2
+  },
+  {
+    "index": 3,
+    "timestamp": 1780174073.5691197,
+    "datetime": "2026-05-31 03:47:53",
+    "data": {
+      "event": "BLINK_SLOW",
+      "description": "Mắt nhắm chậm bất thường",
+      "details": {
+        "ear": 0.2121
+      },
+      "session_time": "03:47:53"
+    },
+    "previous_hash": "008deba727a9cd98a637729a63ee0a6ee30460b2a37b8585f16f93e3f95db68b",
+    "nonce": 50,
+    "hash": "00cfe181971f83fc92a3aa015f9de28d4222c9dfda768247a236ba5abe307e47",
+    "difficulty": 2
+  },
+  {
+    "index": 4,
+    "timestamp": 1780174303.112273,
+    "datetime": "2026-05-31 03:51:43",
+    "data": {
+      "event": "SESSION_END",
+      "description": "Kết thúc phiên làm việc",
+      "details": {
+        "duration_min": 4.3,
+        "total_blinks": 127,
+        "drowsy_alerts": 1
+      },
+      "session_time": "03:51:43"
+    },
+    "previous_hash": "00cfe181971f83fc92a3aa015f9de28d4222c9dfda768247a236ba5abe307e47",
+    "nonce": 57,
+    "hash": "0093ec571ab1a4f4573e5565fdfc84b808316424cc975259ce8d7ac39bc2f5d3",
+    "difficulty": 2
+  },
+  {
+    "index": 5,
+    "timestamp": 1780553597.8097765,
+    "datetime": "2026-06-04 13:13:17",
+    "data": {
+      "event": "SESSION_START",
+      "description": "Bắt đầu phiên làm việc",
+      "details": {
+        "camera": "Webcam 0",
+        "resolution": "640x480",
+        "mediapipe": true
+      },
+      "session_time": "13:13:17"
+    },
+    "previous_hash": "0093ec571ab1a4f4573e5565fdfc84b808316424cc975259ce8d7ac39bc2f5d3",
+    "nonce": 277,
+    "hash": "00967da85141aea8fad99cb59401829bccaa53094b942bdb2900769db76d6479",
+    "difficulty": 2
+  },
+  {
+    "index": 6,
+    "timestamp": 1780553604.9855585,
+    "datetime": "2026-06-04 13:13:24",
+    "data": {
+      "event": "EYES_CLOSED",
+      "description": "Mắt nhắm kéo dài (buồn ngủ)",
+      "details": {
+        "ear": 0.2001,
+        "threshold": 0.21,
+        "frames": 15
+      },
+      "session_time": "13:13:24"
+    },
+    "previous_hash": "00967da85141aea8fad99cb59401829bccaa53094b942bdb2900769db76d6479",
+    "nonce": 29,
+    "hash": "006cd4ed57d009726064e5e0eaaa14432b29a585d1ec85aca8ea1e44f2bef6c6",
+    "difficulty": 2
+  },
+  {
+    "index": 7,
+    "timestamp": 1780553673.3759346,
+    "datetime": "2026-06-04 13:14:33",
+    "data": {
+      "event": "BLINK_SLOW",
+      "description": "Mắt nhắm chậm bất thường",
+      "details": {
+        "ear": 0.2145
+      },
+      "session_time": "13:14:33"
+    },
+    "previous_hash": "006cd4ed57d009726064e5e0eaaa14432b29a585d1ec85aca8ea1e44f2bef6c6",
+    "nonce": 38,
+    "hash": "00c90252c66899a682f66d8fe3641fb033a8e8ad1e1bf4c959b48e9c0bd54226",
+    "difficulty": 2
+  },
+  {
+    "index": 8,
+    "timestamp": 1780553673.8527157,
+    "datetime": "2026-06-04 13:14:33",
+    "data": {
+      "event": "SESSION_END",
+      "description": "Kết thúc phiên làm việc",
+      "details": {
+        "duration_min": 1.4,
+        "total_blinks": 24,
+        "drowsy_alerts": 1
+      },
+      "session_time": "13:14:33"
+    },
+    "previous_hash": "00c90252c66899a682f66d8fe3641fb033a8e8ad1e1bf4c959b48e9c0bd54226",
+    "nonce": 133,
+    "hash": "002e20c171b4d2a83b97e61e19b3912efd809469391380e1eeaff1d6a5a6c03e",
+    "difficulty": 2
+  },
+  {
+    "index": 9,
+    "timestamp": 1780564138.2406657,
+    "datetime": "2026-06-04 16:08:58",
+    "data": {
+      "event": "SESSION_START",
+      "description": "Bắt đầu phiên làm việc",
+      "details": {
+        "camera": "Webcam 0",
+        "resolution": "640x480",
+        "mediapipe": true
+      },
+      "session_time": "16:08:58"
+    },
+    "previous_hash": "002e20c171b4d2a83b97e61e19b3912efd809469391380e1eeaff1d6a5a6c03e",
+    "nonce": 91,
+    "hash": "000082e449bbc97c5e13b28ecfe97cbb8f6f54e5aedb58d67adb1903649d7ae1",
+    "difficulty": 2
+  },
+  {
+    "index": 10,
+    "timestamp": 1780564142.7112236,
+    "datetime": "2026-06-04 16:09:02",
+    "data": {
+      "event": "EYES_CLOSED",
+      "description": "Mắt nhắm kéo dài (buồn ngủ)",
+      "details": {
+        "ear": 0.1076,
+        "threshold": 0.21,
+        "frames": 15
+      },
+      "session_time": "16:09:02"
+    },
+    "previous_hash": "000082e449bbc97c5e13b28ecfe97cbb8f6f54e5aedb58d67adb1903649d7ae1",
+    "nonce": 69,
+    "hash": "00048886529e1c6e43166db5c54f1a2845eb76eb439a327bf1d163059b5a7371",
+    "difficulty": 2
+  },
+  {
+    "index": 11,
+    "timestamp": 1780564181.9449174,
+    "datetime": "2026-06-04 16:09:41",
+    "data": {
+      "event": "SESSION_END",
+      "description": "Kết thúc phiên làm việc",
+      "details": {
+        "duration_min": 0.8,
+        "total_blinks": 13,
+        "drowsy_alerts": 1
+      },
+      "session_time": "16:09:41"
+    },
+    "previous_hash": "00048886529e1c6e43166db5c54f1a2845eb76eb439a327bf1d163059b5a7371",
+    "nonce": 286,
+    "hash": "00f3ce23c14d3fe1521abb3d18737767bc4598849bd899edf8cd760e78b2bf5d",
+    "difficulty": 2
+  },
+  {
+    "index": 12,
+    "timestamp": 1780564342.0848634,
+    "datetime": "2026-06-04 16:12:22",
+    "data": {
+      "event": "SESSION_START",
+      "description": "Bắt đầu phiên làm việc",
+      "details": {
+        "camera": "Webcam 0",
+        "resolution": "640x480",
+        "mediapipe": true
+      },
+      "session_time": "16:12:22"
+    },
+    "previous_hash": "00f3ce23c14d3fe1521abb3d18737767bc4598849bd899edf8cd760e78b2bf5d",
+    "nonce": 283,
+    "hash": "00efc2e0805f52efea898f65ff5b02ef2d2afd2382fe0a53a7b61cf2dfa12392",
+    "difficulty": 2
+  },
+  {
+    "index": 13,
+    "timestamp": 1780564344.605505,
+    "datetime": "2026-06-04 16:12:24",
+    "data": {
+      "event": "EYES_CLOSED",
+      "description": "Mắt nhắm kéo dài (buồn ngủ)",
+      "details": {
+        "ear": 0.1294,
+        "threshold": 0.21,
+        "frames": 15
+      },
+      "session_time": "16:12:24"
+    },
+    "previous_hash": "00efc2e0805f52efea898f65ff5b02ef2d2afd2382fe0a53a7b61cf2dfa12392",
+    "nonce": 19,
+    "hash": "0076f7481f8c1cf96a480d8706404a401f355ed758ab77fac214c4898a99c4af",
+    "difficulty": 2
+  },
+  {
+    "index": 14,
+    "timestamp": 1780564376.3538797,
+    "datetime": "2026-06-04 16:12:56",
+    "data": {
+      "event": "SESSION_END",
+      "description": "Kết thúc phiên làm việc",
+      "details": {
+        "duration_min": 0.7,
+        "total_blinks": 16,
+        "drowsy_alerts": 1
+      },
+      "session_time": "16:12:56"
+    },
+    "previous_hash": "0076f7481f8c1cf96a480d8706404a401f355ed758ab77fac214c4898a99c4af",
+    "nonce": 39,
+    "hash": "008ffd3dddf53f7c6ea8858bb41e784aa002ca68aa66677d530f62bca647d012",
+    "difficulty": 2
+  },
+  {
+    "index": 15,
+    "timestamp": 1780566166.9632437,
+    "datetime": "2026-06-04 16:42:46",
+    "data": {
+      "event": "SESSION_START",
+      "description": "Bắt đầu phiên làm việc",
+      "details": {
+        "camera": "Webcam 0",
+        "resolution": "640x480",
+        "mediapipe": true
+      },
+      "session_time": "16:42:46"
+    },
+    "previous_hash": "008ffd3dddf53f7c6ea8858bb41e784aa002ca68aa66677d530f62bca647d012",
+    "nonce": 433,
+    "hash": "003028c019dd0399889cf8845b5e26a982cc06aef35a77b93ccb40b59c8a140b",
+    "difficulty": 2
+  },
+  {
+    "index": 16,
+    "timestamp": 1780566190.6792152,
+    "datetime": "2026-06-04 16:43:10",
+    "data": {
+      "event": "EYES_CLOSED",
+      "description": "Mắt nhắm kéo dài (buồn ngủ)",
+      "details": {
+        "ear": 0.1824,
+        "threshold": 0.21,
+        "frames": 15
+      },
+      "session_time": "16:43:10"
+    },
+    "previous_hash": "003028c019dd0399889cf8845b5e26a982cc06aef35a77b93ccb40b59c8a140b",
+    "nonce": 678,
+    "hash": "00e6c7a1d4b51d59f509f0b3398b47428ecedcfb81ed261159bb1b6953c2cd21",
+    "difficulty": 2
+  },
+  {
+    "index": 17,
+    "timestamp": 1780566202.8353865,
+    "datetime": "2026-06-04 16:43:22",
+    "data": {
+      "event": "BLINK_SLOW",
+      "description": "Mắt nhắm chậm bất thường",
+      "details": {
+        "ear": 0.2115
+      },
+      "session_time": "16:43:22"
+    },
+    "previous_hash": "00e6c7a1d4b51d59f509f0b3398b47428ecedcfb81ed261159bb1b6953c2cd21",
+    "nonce": 595,
+    "hash": "00e367154f53d4c29a6a7674fa4050d4b97ce490735f6679a8be3e8d6d5959f7",
+    "difficulty": 2
+  },
+  {
+    "index": 18,
+    "timestamp": 1780566283.963365,
+    "datetime": "2026-06-04 16:44:43",
+    "data": {
+      "event": "SESSION_END",
+      "description": "Kết thúc phiên làm việc",
+      "details": {
+        "duration_min": 2.1,
+        "total_blinks": 67,
+        "drowsy_alerts": 1
+      },
+      "session_time": "16:44:43"
+    },
+    "previous_hash": "00e367154f53d4c29a6a7674fa4050d4b97ce490735f6679a8be3e8d6d5959f7",
+    "nonce": 38,
+    "hash": "0022957c2ce1be10e246d6c9e2bf09029ff6712b3ac91bbc39b1bf090694e4ae",
+    "difficulty": 2
+  }
+]
