@@ -12,17 +12,17 @@
 <tr>
 
 <td align="center">
-<img src="docs/dnu_logo.png" width="220"><br><br>
+<img src="dnu_logo (2).png" width="220"><br><br>
 <b>DaiNam University</b>
 </td>
 
 <td align="center">
-<img src="docs/aiotlab_logo.png" width="220"><br><br>
+<img src="aiotlab_logo (1).png" width="220"><br><br>
 <b>AIoT Lab</b>
 </td>
 
 <td align="center">
-<img src="docs/fitdnu_logo.png" width="220"><br><br>
+<img src="fitdnu_logo.png" width="220"><br><br>
 <b>Faculty of Information Technology</b>
 </td>
 
